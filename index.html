@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Ayah untuk Kita Para Anak Yatim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <main class="stage" id="stage">
+        <!-- Lapisan latar aurora & bintang -->
+        <div class="aurora aurora-1" aria-hidden="true"></div>
+        <div class="aurora aurora-2" aria-hidden="true"></div>
+        <div class="starfield" aria-hidden="true"></div>
+
+        <!-- Kanvas animasi meriah: kembang api, lentera terbang, konfeti emas & kunang-kunang -->
+        <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+
+        <!-- Lingkaran cahaya & ornamen berputar di belakang teks -->
+        <div class="halo-system" aria-hidden="true">
+            <div class="halo-glow"></div>
+            <div class="pulse-ring pulse-ring-1"></div>
+            <div class="pulse-ring pulse-ring-2"></div>
+            <svg class="orbit-svg orbit-outer" viewBox="0 0 400 400" fill="none">
+                <circle cx="200" cy="200" r="186" stroke="url(#ringGrad)" stroke-width="1" stroke-dasharray="4 10"/>
+                <circle cx="200" cy="14" r="3.5" fill="#FFD98E"/>
+                <circle cx="386" cy="200" r="2.5" fill="#F4A261"/>
+                <circle cx="200" cy="386" r="3" fill="#FFF1C9"/>
+                <defs>
+                    <linearGradient id="ringGrad" x1="0" y1="0" x2="400" y2="400">
+                        <stop stop-color="#FFD98E" stop-opacity="0.45"/>
+                        <stop offset="0.5" stop-color="#E6A15C" stop-opacity="0.1"/>
+                        <stop offset="1" stop-color="#FFD98E" stop-opacity="0.45"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <svg class="orbit-svg orbit-inner" viewBox="0 0 300 300" fill="none">
+                <circle cx="150" cy="150" r="136" stroke="#FFD98E" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="2 14"/>
+                <circle cx="150" cy="14" r="2.5" fill="#FFE8B3"/>
+                <circle cx="44" cy="236" r="2" fill="#F4A261"/>
+            </svg>
+        </div>
+
+        <!-- Lentera gantung dekoratif di kiri & kanan -->
+        <div class="side-lantern side-lantern-left" aria-hidden="true">
+            <svg width="64" height="140" viewBox="0 0 64 140" fill="none">
+                <line x1="32" y1="0" x2="32" y2="48" stroke="#E5B777" stroke-opacity="0.55" stroke-width="1.4"/>
+                <path d="M18 62C18 53 24 48 32 48C40 48 46 53 46 62V98C46 106 40 111 32 111C24 111 18 106 18 98V62Z" fill="#1C283C" fill-opacity="0.72" stroke="#E5B777" stroke-width="1.5"/>
+                <path class="svg-flame" d="M32 69C35.5 74 37.5 78.5 37.5 83C37.5 86.5 35 89 32 89C29 89 26.5 86.5 26.5 83C26.5 78.5 28.5 74 32 69Z" fill="#FFD37E"/>
+                <path d="M23 111H41L38 120H26L23 111Z" fill="#233148" stroke="#E5B777" stroke-width="1.3"/>
+            </svg>
+        </div>
+
+        <div class="side-lantern side-lantern-right" aria-hidden="true">
+            <svg width="56" height="128" viewBox="0 0 64 140" fill="none">
+                <line x1="32" y1="0" x2="32" y2="42" stroke="#E5B777" stroke-opacity="0.55" stroke-width="1.4"/>
+                <path d="M18 56C18 47 24 42 32 42C40 42 46 47 46 56V92C46 100 40 105 32 105C24 105 18 100 18 92V56Z" fill="#1C283C" fill-opacity="0.72" stroke="#E5B777" stroke-width="1.5"/>
+                <path class="svg-flame" d="M32 63C35.5 68 37.5 72.5 37.5 77C37.5 80.5 35 83 32 83C29 83 26.5 80.5 26.5 77C26.5 72.5 28.5 68 32 63Z" fill="#FFD37E"/>
+                <path d="M23 105H41L38 114H26L23 105Z" fill="#233148" stroke="#E5B777" stroke-width="1.3"/>
+            </svg>
+        </div>
+
+        <!-- Ucapan Utama yang Timbul -->
+        <section class="greeting-center" id="greeting-center" aria-live="polite">
+            <div class="spark-flash" aria-hidden="true"></div>
+
+            <h1 class="greeting-title" aria-label="Selamat Hari Ayah untuk kita para anak yatim">
+                <span class="line-main">
+                    <span class="word" style="--i: 0;">Selamat</span>
+                    <span class="word" style="--i: 1;">Hari</span>
+                    <span class="word" style="--i: 2;">Ayah</span>
+                </span>
+                <span class="divider-beam" aria-hidden="true"></span>
+                <span class="line-sub">
+                    <span class="word" style="--i: 3;">untuk</span>
+                    <span class="word" style="--i: 4;">kita</span>
+                    <span class="word" style="--i: 5;">para</span>
+                    <span class="word" style="--i: 6;">anak</span>
+                    <span class="word" style="--i: 7;">yatim</span>
+                </span>
+            </h1>
+        </section>
+
+        <!-- Kontrol kecil & tidak mencolok untuk memeriahkan / mengulang -->
+        <div class="controls-dock" id="controls-dock">
+            <button type="button" class="dock-btn" id="replay-btn" title="Putar ulang animasi timbulnya ucapan">
+                Putar Ulang
+            </button>
+            <button type="button" class="dock-btn dock-btn-gold" id="celebrate-btn" title="Nyalakan kembang api &amp; lentera">
+                Meriahkan
+            </button>
+            <button type="button" class="dock-btn" id="sound-btn" aria-pressed="false" title="Putar alunan nada lembut">
+                Nada: Mati
+            </button>
+        </div>
+    </main>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

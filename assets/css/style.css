@@ -1,0 +1,523 @@
+/* Pelita Hari Ayah — Panggung Animasi Tunggal */
+
+:root {
+    --bg-deep: #070b14;
+    --bg-mid: #101b30;
+    --gold-light: #fff3d6;
+    --gold: #f5c372;
+    --gold-amber: #df8e3b;
+    --rose-warm: #f2a68d;
+    --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --font-sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-deep);
+    color: var(--gold-light);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+}
+
+.stage {
+    position: relative;
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 45%, #16233b 0%, #0a101d 58%, #050810 100%);
+    cursor: pointer;
+}
+
+/* Lapisan Aurora Latar */
+.aurora {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+}
+
+.aurora-1 {
+    width: 65vw;
+    height: 65vw;
+    max-width: 780px;
+    max-height: 780px;
+    top: -18%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(223, 142, 59, 0.28) 0%, rgba(223, 142, 59, 0) 70%);
+    animation: auroraDriftA 14s ease-in-out infinite alternate;
+}
+
+.aurora-2 {
+    width: 60vw;
+    height: 60vw;
+    max-width: 720px;
+    max-height: 720px;
+    bottom: -20%;
+    right: -8%;
+    background: radial-gradient(circle, rgba(96, 134, 212, 0.28) 0%, rgba(242, 166, 141, 0.14) 45%, rgba(0, 0, 0, 0) 72%);
+    animation: auroraDriftB 16s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDriftA {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(8%, 10%) scale(1.14); }
+}
+
+@keyframes auroraDriftB {
+    0% { transform: translate(0, 0) scale(1.05); }
+    100% { transform: translate(-10%, -8%) scale(1.18); }
+}
+
+/* Lapisan Bintang Berkelip */
+.starfield {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(1.5px 1.5px at 8% 15%, rgba(255, 244, 214, 0.8), transparent),
+        radial-gradient(1px 1px at 18% 42%, rgba(255, 244, 214, 0.55), transparent),
+        radial-gradient(2px 2px at 26% 78%, rgba(245, 195, 114, 0.65), transparent),
+        radial-gradient(1.2px 1.2px at 42% 14%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 62% 22%, rgba(255, 244, 214, 0.75), transparent),
+        radial-gradient(1px 1px at 74% 82%, rgba(255, 244, 214, 0.5), transparent),
+        radial-gradient(2px 2px at 88% 30%, rgba(245, 195, 114, 0.75), transparent),
+        radial-gradient(1.5px 1.5px at 92% 66%, rgba(255, 244, 214, 0.6), transparent);
+    animation: starTwinkle 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes starTwinkle {
+    0% { opacity: 0.45; }
+    100% { opacity: 0.95; }
+}
+
+/* Kanvas Partikel Meriah */
+#celebration-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Sistem Lingkaran Cahaya */
+.halo-system {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.halo-glow {
+    position: absolute;
+    width: min(62vw, 520px);
+    height: min(62vw, 520px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 195, 114, 0.22) 0%, rgba(223, 142, 59, 0.08) 42%, transparent 72%);
+    animation: haloBreathe 5s ease-in-out infinite;
+}
+
+@keyframes haloBreathe {
+    0%, 100% { transform: scale(0.95); opacity: 0.75; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
+
+.orbit-svg {
+    position: absolute;
+    pointer-events: none;
+}
+
+.orbit-outer {
+    width: min(86vw, 600px);
+    height: min(86vw, 600px);
+    animation: orbitSpin 42s linear infinite;
+}
+
+.orbit-inner {
+    width: min(68vw, 440px);
+    height: min(68vw, 440px);
+    animation: orbitSpinReverse 30s linear infinite;
+}
+
+@keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 217, 142, 0.55);
+    opacity: 0;
+}
+
+.stage.is-animating .pulse-ring-1 {
+    animation: ringExpand 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.stage.is-animating .pulse-ring-2 {
+    animation: ringExpand 2.4s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards;
+}
+
+@keyframes ringExpand {
+    0% {
+        transform: scale(0.4);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(5.4);
+        opacity: 0;
+    }
+}
+
+/* Lentera Gantung Kiri & Kanan */
+.side-lantern {
+    position: absolute;
+    top: -6px;
+    z-index: 4;
+    pointer-events: none;
+    transform-origin: top center;
+}
+
+.side-lantern-left {
+    left: clamp(16px, 6vw, 88px);
+    animation: swayLeft 5.6s ease-in-out infinite;
+}
+
+.side-lantern-right {
+    right: clamp(16px, 6vw, 88px);
+    animation: swayRight 6.4s ease-in-out infinite;
+}
+
+.svg-flame {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: flameDance 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes swayLeft {
+    0%, 100% { transform: rotate(-2.5deg); }
+    50% { transform: rotate(2.8deg); }
+}
+
+@keyframes swayRight {
+    0%, 100% { transform: rotate(2.6deg); }
+    50% { transform: rotate(-2.4deg); }
+}
+
+@keyframes flameDance {
+    0% { transform: scale(0.95) skewX(-2deg); opacity: 0.9; }
+    100% { transform: scale(1.08) skewX(2deg); opacity: 1; }
+}
+
+/* Ucapan Utama yang Timbul */
+.greeting-center {
+    position: relative;
+    z-index: 6;
+    text-align: center;
+    padding: 0 24px;
+    max-width: 980px;
+}
+
+.spark-flash {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, #ffffff 0%, #ffd98e 40%, rgba(255, 217, 142, 0) 75%);
+    pointer-events: none;
+}
+
+.stage.is-animating .spark-flash {
+    animation: flashBloom 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes flashBloom {
+    0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 1;
+    }
+    45% {
+        transform: translate(-50%, -50%) scale(16);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(28);
+        opacity: 0;
+    }
+}
+
+.greeting-title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.line-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.24em;
+    font-family: var(--font-serif);
+    font-size: clamp(2.7rem, 7.6vw, 5.8rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    text-shadow: 0 6px 32px rgba(245, 195, 114, 0.32);
+}
+
+.line-sub {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.28em;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.65rem, 4.3vw, 3.15rem);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(36px) scale(0.86);
+    filter: blur(12px);
+}
+
+.line-main .word {
+    background: linear-gradient(120deg, #fff6e3 0%, #ffd280 45%, #fff8eb 75%, #f4b260 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.line-sub .word {
+    color: #f9e4c3;
+    text-shadow: 0 2px 24px rgba(244, 162, 97, 0.35);
+}
+
+.stage.is-animating .word {
+    animation:
+        wordEmerge 1.05s cubic-bezier(0.22, 1, 0.36, 1) calc(0.28s + var(--i) * 0.2s) forwards,
+        wordFloat 5.5s ease-in-out calc(2.6s + var(--i) * 0.16s) infinite;
+}
+
+.stage.is-animating .line-main .word {
+    animation:
+        wordEmerge 1.05s cubic-bezier(0.22, 1, 0.36, 1) calc(0.28s + var(--i) * 0.22s) forwards,
+        goldShimmer 5s linear 1.8s infinite,
+        wordFloat 5.5s ease-in-out calc(2.6s + var(--i) * 0.16s) infinite;
+}
+
+@keyframes wordEmerge {
+    0% {
+        opacity: 0;
+        transform: translateY(38px) scale(0.84);
+        filter: blur(14px);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1.03);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes goldShimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 220% 50%; }
+}
+
+@keyframes wordFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.divider-beam {
+    display: block;
+    width: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #ffd280, #ffffff, #ffd280, transparent);
+    box-shadow: 0 0 18px rgba(255, 210, 128, 0.8);
+    opacity: 0;
+}
+
+.stage.is-animating .divider-beam {
+    animation: beamGrow 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
+}
+
+@keyframes beamGrow {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: min(64vw, 320px);
+        opacity: 0.95;
+    }
+}
+
+/* Dock Kontrol Halus di Bawah */
+.controls-dock {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(12, 19, 32, 0.56);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 217, 142, 0.22);
+    opacity: 0;
+}
+
+.stage.is-animating ~ .controls-dock,
+.stage.is-animating .controls-dock {
+    animation: dockFadeIn 0.8s ease 2.4s forwards;
+}
+
+@keyframes dockFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 14px);
+    }
+    to {
+        opacity: 0.88;
+        transform: translate(-50%, 0);
+    }
+}
+
+.controls-dock:hover {
+    opacity: 1 !important;
+}
+
+.dock-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 217, 142, 0.26);
+    color: var(--gold-light);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.dock-btn:hover {
+    background: rgba(255, 217, 142, 0.18);
+    border-color: rgba(255, 217, 142, 0.55);
+    transform: translateY(-1px);
+}
+
+.dock-btn-gold {
+    background: rgba(245, 195, 114, 0.2);
+    border-color: rgba(245, 195, 114, 0.5);
+    color: #ffe7b8;
+    font-weight: 600;
+}
+
+.dock-btn[aria-pressed="true"] {
+    background: var(--gold);
+    color: #101725;
+    border-color: var(--gold);
+    font-weight: 600;
+}
+
+/* Responsif */
+@media (max-width: 640px) {
+    .side-lantern svg {
+        width: 42px;
+        height: auto;
+    }
+
+    .greeting-title {
+        gap: 14px;
+    }
+
+    .controls-dock {
+        bottom: 16px;
+        gap: 6px;
+        padding: 6px 9px;
+    }
+
+    .dock-btn {
+        padding: 6px 11px;
+        font-size: 0.74rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aurora,
+    .starfield,
+    .halo-glow,
+    .orbit-svg,
+    .side-lantern,
+    .svg-flame,
+    .word,
+    .divider-beam,
+    .pulse-ring,
+    .spark-flash,
+    .controls-dock {
+        animation: none !important;
+    }
+
+    .word {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    .divider-beam {
+        width: min(64vw, 320px) !important;
+        opacity: 0.9 !important;
+    }
+
+    .controls-dock {
+        opacity: 0.9 !important;
+    }
+}
